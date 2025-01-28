@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
+
 void main() {
   runApp( MyApp());
+  
 }
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   MyApp({super.key});
-
 
  //P R O G R A M M I N G   F U N D A M E N T A L S
 
   //VARIABLES
   String name = "Bashi Imalsha";
-  int age = 100;
+  int age = 2;
   bool isBegginner = true;
 
-
-  
-/*
+  /*
   BASIC MATH OPERATIONS
   1+1 -> 2, add
   4-1 -> 3, subtract
@@ -101,3 +101,5 @@ If you don't know how many times to loop,you canuse a while to keep looping unti
     );
   }
 }
+
+
