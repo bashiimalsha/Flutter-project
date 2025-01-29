@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_project/util/dialog_box.dart';
 import 'package:my_project/util/todo_tile.dart';
 
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -23,12 +24,24 @@ class _HomePageState extends State<HomePage> {
 
   ];
   //checkbox was tapped
-  void CheckBoxChanged(bool? value,int index) {
+  void checkBoxChanged(bool? value,int index) {
     setState(() {
       toDoList[index][1] = !toDoList[index][1];
     });
 
   }
+
+  //save new task
+  void saveNewTask() {
+    setState(() {
+      toDoList.add([_controller.text, false]);
+      _controller.clear();
+    });
+    Navigator.of(context).pop();
+
+  }
+
+
   //create a new task
   void createNewTask() {
     showDialog(
@@ -36,9 +49,17 @@ class _HomePageState extends State<HomePage> {
     builder: (context){
       return DialogBox(
         controller: _controller,
+        onSave: saveNewTask,
+        onCancel: () => Navigator.of(context).pop(),
+
       );
     }
     );
+  }
+  void deleteTask(int index) {
+    setState(() {
+      toDoList.removeAt(index);
+    });
   }
 
 
@@ -53,6 +74,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: createNewTask,
+        // ignore: sort_child_properties_last
         child: Icon(Icons.add),
         backgroundColor: Colors.yellow,
       
@@ -63,7 +85,8 @@ class _HomePageState extends State<HomePage> {
           return TodoTile(
             taskName: toDoList[index][0], 
             taskCompleted: toDoList[index][1], 
-            onChanged: (value) => CheckBoxChanged(value, index),
+            onChanged: (value) => checkBoxChanged(value, index),
+            deleteFunction: (context) => deleteTask,
             );
         }
       ),
